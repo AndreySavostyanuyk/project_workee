@@ -5,9 +5,9 @@ const BadgeItem = () => {
   const [active, setActive] = useState(0);
 
   const array = [
-    {text:'All', size:80},
-    {text:'Active', size:80},
-    {text:'Blocked', size:0}
+    {filterName:'All', size:80},
+    {filterName:'Active', size:80},
+    {filterName:'Blocked', size:0}
   ]
   
   const toggle = (index) => {
@@ -28,7 +28,7 @@ const BadgeItem = () => {
               `badge_text${index} focus_text` : `badge_text${index}`
             }
           >
-            {value.text}
+            {value.filterName}
           </span>
           <span 
           className={active === index ? 

@@ -10,11 +10,11 @@ import './SidePanel.scss';
 const SidePanel = () => {
   const [active, setActive] = useState(1);
   const array = [
-    {src: Companies, text:'Jobs', link:'/jobs'},
-    {src: Companies, text:'Companies', link:'/companies'},
-    {src: Candidates, text:'Candidates', link:'/candidates'},
-    {src: Reports, text:'Reports', link:'/problemReports'},
-    {src: Jobs, text:'Settings', link:'/settings'},
+    {src: Companies, tabName:'Jobs', link:'/jobs'},
+    {src: Companies, tabName:'Companies', link:'/companies'},
+    {src: Candidates, tabName:'Candidates', link:'/candidates'},
+    {src: Reports, tabName:'Reports', link:'/problemReports'},
+    {src: Jobs, tabName:'Settings', link:'/settings'},
   ]
 
   const toggle = (index) => {
@@ -41,7 +41,7 @@ const SidePanel = () => {
                 src={value.src}
               />
                 <span>
-                  {value.text}
+                  {value.tabName}
                 </span>
             </li>
           </Link>
