@@ -1,0 +1,18 @@
+.main_companies {
+  width: 100%;
+  height: 100vh;
+
+  .companies_container{
+    padding: 50px;
+
+    .container_item__header {
+
+      h3 {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 27px;
+      }
+    }
+  }
+}
