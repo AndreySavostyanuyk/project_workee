@@ -1,0 +1,46 @@
+.main_SidePanel {
+  background: #ffffff;
+  height: 100%;
+  width: 15%;
+
+  .item_img {
+    width: 55%;
+    margin: 35px 30px;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 20px;
+    padding-inline-start: 0px;
+    
+    a {
+      text-decoration: none;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      margin-bottom: 40px;
+      padding: 10px;
+
+      img {
+        width: 10%;
+        color: #78849B;
+        margin-right: 20px;
+      }
+
+      span { 
+        color: #78849B;
+        font-size: 1.2rem;
+        line-height: 18px;
+      }
+    }
+
+    .focus {
+      background-color: #F2F5F9;
+      border-radius: 24px;
+    }
+  }
+}
