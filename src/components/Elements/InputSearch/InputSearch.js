@@ -35,9 +35,9 @@ const InputSearch = () => {
   const classes = useStyles();
 
   return (
-    <div className="item_search">
+    <div className="item_filretSearch">
       <Paper component="form" className={classes.root}>
-        <IconButton type="submit" className={classes.iconButton} aria-label="search">
+        <IconButton className={classes.iconButton} aria-label="search">
           <SearchIcon />
         </IconButton>
         <InputBase
