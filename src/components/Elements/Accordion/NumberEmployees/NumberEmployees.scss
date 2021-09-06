@@ -1,0 +1,63 @@
+.item_accordion_Employees {
+  margin-bottom: 10px;
+
+  .ListEmployees {
+    display: flex;
+    flex-direction: column;
+
+    .item_ListEmployees {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 15px;
+      align-items: center;
+
+      .listEmployees_item_text {
+        font-size: 14px;
+        line-height: 16px;
+        color: #78849B;
+      }
+
+      .MuiIconButton-root {
+        margin-right: 10px;
+      }
+    }
+
+    .MuiCheckbox-colorPrimary.Mui-checked {
+      color: #FFB002;;
+    }
+  }
+
+  .MuiPaper-root {
+    background-color: #ffffff !important;
+    border-radius: 6px !important;
+    box-shadow: none;
+  }
+
+  .MuiAccordionDetails-root {
+    flex-direction: column;
+  }
+
+  .item_text {
+    text-align: end;
+    text-transform: uppercase;
+
+    span {
+      color: #FFB002;
+      font-weight: bold;
+      font-size: 12px;
+    }
+  }
+
+  .openAccordion {
+    border: solid 1px #FFB002;
+    border-radius: 6px;
+
+    .MuiIconButton-root {
+      color:#FFB002;
+    }
+
+    .MuiButtonBase-root {
+      background: #FFF8E8;
+    }
+  }
+}

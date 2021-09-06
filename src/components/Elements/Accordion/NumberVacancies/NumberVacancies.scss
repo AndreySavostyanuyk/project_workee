@@ -1,0 +1,37 @@
+.item_accordion_Vacancies {
+  margin-bottom: 10px;
+  
+  .MuiPaper-root {
+    background-color: #ffffff !important;
+    border-radius: 6px !important;
+    box-shadow: none;
+  }
+
+  .MuiAccordionDetails-root {
+    flex-direction: column;
+  }
+
+  .item_text {
+    text-align: end;
+    text-transform: uppercase;
+
+    span {
+      color: #FFB002;
+      font-weight: bold;
+      font-size: 12px;
+    }
+  }
+
+  .openAccordion {
+    border: solid 1px #FFB002;
+    border-radius: 6px;
+
+    .MuiIconButton-root {
+      color:#FFB002;
+    }
+
+    .MuiButtonBase-root {
+      background: #FFF8E8;
+    }
+  }
+}

@@ -40,9 +40,9 @@ const SidePanel = () => {
               <img 
                 src={value.src}
               />
-                <span>
-                  {value.tabName}
-                </span>
+              <span>
+                {value.tabName}
+              </span>
             </li>
           </Link>
           )
