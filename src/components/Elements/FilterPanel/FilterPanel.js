@@ -112,7 +112,7 @@ const FilterPanel = ({ setOpen, open }) => {
       </div>
       <div className="selectedFilters">
         <span>Selected filters:</span>
-        <div>
+        <div className="item_chip">
           <Chip 
             icon={ArrowBackIcon} 
             variant="outlined" 

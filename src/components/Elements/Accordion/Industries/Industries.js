@@ -57,7 +57,7 @@ const Industries = ({ arrayIndustries, setArrayIndustries }) => {
     if (id >= 0) {
       listCheckbox[index].check = false
   
-      const cloneArrayIndustries = arrayIndustries.filter(function (item) {
+      const cloneArrayIndustries = arrayIndustries.filter((item) => {
         return item !== arrayIndustries[id]
       })
 

@@ -21,6 +21,10 @@
   .selectedFilters {
     margin-left: 15px;
 
+    .item_chip {
+      margin: 10px 0px 10px;
+    }
+
     .item_ClearFilters {
       border-bottom: solid 1px;
       margin-top: 10px;
@@ -56,6 +60,7 @@
     align-items: center;
     justify-content: space-between;
     margin-left: 15px;
+    margin-bottom: 10px;
   }
 
   .item_numberVacancies {

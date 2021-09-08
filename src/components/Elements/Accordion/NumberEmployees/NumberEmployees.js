@@ -52,7 +52,7 @@ const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees })
     if (id >= 0) {
       arrayListCheckbox[index].check = false
     
-      const cloneArrayEmployees = arrayEmployees.filter(function (item) {
+      const cloneArrayEmployees = arrayEmployees.filter((item) => {
         return item !== arrayEmployees[id]
       })
       setArrayEmployees(cloneArrayEmployees)
