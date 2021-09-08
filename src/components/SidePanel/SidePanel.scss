@@ -1,8 +1,10 @@
 .main_SidePanel {
   background: #ffffff;
   height: 100%;
-  width: 20%;
+  width: 15%;
   min-width: 200px;
+  z-index: 2000;
+  border: 1px solid #E8EFFA;
 
   .item_img {
     width: 55%;
