@@ -3,7 +3,7 @@ import User from '../Elements/User/User';
 import Badge from '../Elements/Badge/BadgeItem';
 import InputSearch from '../Elements/InputSearch/InputSearch';
 import FilterButton from '../Elements/FilterButton/FilterButton';
-import FilterPanel from '../Elements/FilterPanel/FilterPanel';
+import Table from '../Elements/Table/Table'
 import './Companies.scss';
 
 const Companies = ({ open, setOpen }) => {
@@ -19,6 +19,9 @@ const Companies = ({ open, setOpen }) => {
         <div className="item_search">
           <InputSearch />
           <FilterButton setOpen={setOpen} />
+        </div>
+        <div className="item_table">
+          <Table />
         </div>
       </div>
     </div>

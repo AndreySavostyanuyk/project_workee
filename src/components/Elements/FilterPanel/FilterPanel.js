@@ -121,6 +121,7 @@ const FilterPanel = ({ setOpen, open }) => {
           />
           { arrayEmployees.map((value, index) =>
             <Chip 
+              key={index}
               icon={ArrowBackIcon} 
               variant="outlined" 
               label={value} 
@@ -130,6 +131,7 @@ const FilterPanel = ({ setOpen, open }) => {
           }
           { arrayIndustries.map((value, index) =>
             <Chip 
+              key={index}
               icon={ArrowBackIcon} 
               variant="outlined" 
               label={value} 
