@@ -18,6 +18,7 @@ const BadgeItem = () => {
     <div className="main_badge">
       { array.map((value, index) =>
         <div 
+          key={index}
           className={active === index ? 
             `badge${index} focus_badge` : `badge${index}`
           } 

@@ -78,7 +78,7 @@ const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees })
         <AccordionDetails>
           <div className="ListEmployees">
             { arrayListCheckbox.map((item, index) => 
-              <div className="item_ListEmployees">
+              <div className="item_ListEmployees" key={index}>
                 <Checkbox
                 color="primary"
                 onChange={() => handleChange(item, index)}
