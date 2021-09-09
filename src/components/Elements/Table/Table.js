@@ -97,11 +97,10 @@ const EnhancedTableHead = (props) => {
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            
-              <span className={classes.visuallyHidden}>
-                {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-              </span>
-            
+            <span className={classes.visuallyHidden}>
+              {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+            </span>
+
             {headCell.label}
 
             <TableSortLabel
@@ -218,7 +217,6 @@ const EnhancedTable = () => {
   };
 
   const handleChangePage = (event, newPage) => {
-    console.log('newPage', newPage)
     setPage(newPage - 1);
   };
 
@@ -310,14 +308,6 @@ const EnhancedTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        {/* <TablePagination
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
       </Paper>
       <div className="item_pagination">
         <span className={page > 0 ? "item_button__next" : "item_button__prev"} onClick={prev}>
