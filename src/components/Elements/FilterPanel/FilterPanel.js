@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { 
   makeStyles, 
@@ -71,15 +72,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FilterPanel = ({ setOpen, open }) => {
+const FilterPanel = ({ setOpenFilterPanel, openFilterPanel }) => {
   const [arrayIndustries, setArrayIndustries] = useState([]);
   const [arrayEmployees, setArrayEmployees] = useState([]);
-  const [arrayVacancies, setArrayVacancies] = useState([0, 20]);
+  const [arrayVacancies, setArrayVacancies] = useState([0,0]);
   const classes = useStyles();
   const theme = useTheme();
 
+  const dispatch = useDispatch();
+  const filterArray = useSelector(state => state.filters.filtersArray)
+  const filters = useSelector(state => state.filters.filters)
+
+  useEffect(() => {
+    dispatch({type:'ADD_FILTER', payload: {industries: arrayIndustries, employess: arrayEmployees, vacancies: arrayVacancies[1] } });
+  }, [arrayIndustries, arrayEmployees, arrayVacancies])
+  
   const handleDrawerClose = () => {
-    setOpen(false);
+    setOpenFilterPanel(false);
+    dispatch({type:'ADD_ARRAY', payload: filterArray});
+    setArrayEmployees([]);
+    setArrayIndustries([]);
   };
 
   const deleteIndustries = (index) => {
@@ -95,6 +107,7 @@ const FilterPanel = ({ setOpen, open }) => {
   const clearFilters = () => {
     setArrayEmployees([]);
     setArrayIndustries([]);
+    dispatch({type:'ADD_ARRAY', payload: filterArray});
   }
 
   return (
@@ -102,7 +115,7 @@ const FilterPanel = ({ setOpen, open }) => {
       <Drawer
         className={classes.drawer}
         variant="persistent"
-        open={open}
+        open={openFilterPanel}
         classes={{
           paper: classes.drawerPaper,
         }}
@@ -124,7 +137,7 @@ const FilterPanel = ({ setOpen, open }) => {
               key={index}
               icon={ArrowBackIcon} 
               variant="outlined" 
-              label={value} 
+              label={`${value.min}-${value.max}`} 
               onDelete={() => deleteEmployees(index)} 
             />
           ) 
@@ -144,15 +157,22 @@ const FilterPanel = ({ setOpen, open }) => {
       </div>
       <List className="item_numberVacancies">
         <NumberVacancies 
+          openFilterPanel={openFilterPanel}
+          filterArray={filterArray}
           setArrayVacancies={setArrayVacancies} 
           arrayVacancies={arrayVacancies} 
         />
         <Industries 
+          arrayVacancies={arrayVacancies}
+          openFilterPanel={openFilterPanel}
+          filterArray={filterArray}
           deleteIndustries={deleteIndustries} 
           arrayIndustries={arrayIndustries} 
           setArrayIndustries={setArrayIndustries} 
         />
         <NumberEmployees 
+          openFilterPanel={openFilterPanel}
+          filterArray={filterArray}
           deleteEmployees={deleteEmployees} 
           arrayEmployees={arrayEmployees} 
           setArrayEmployees={setArrayEmployees} 
@@ -161,7 +181,7 @@ const FilterPanel = ({ setOpen, open }) => {
     </Drawer>
     <main
       className={clsx(classes.content, {
-        [classes.contentShift]: open,
+        [classes.contentShift]: openFilterPanel,
       })}
     >
       <div className={classes.drawerHeader} />

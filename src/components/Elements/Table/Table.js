@@ -1,4 +1,4 @@
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -20,21 +20,22 @@ function createData(id, name, industry, cvr, vacancies, employees, date, plan) {
   return { id, name, industry, cvr, vacancies, employees, date, plan };
 }
 
-const rows = [
+const rowsArray = [
   createData('1', "nM Electronic supplier", "Construction", 67, 4.3, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 51, 4.9, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 24, 6.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 24, 4.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 49, 3.9, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 87, 6.5, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 37, 4.3, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 94, 0.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 65, 7.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 98, 0.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 81, 2.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 9, 37.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
-  createData('1', "nM Electronic supplier", "Construction", 63, 4.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('2', "nM Electronic supplier", "Construction", 51, 4.9, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('3', "nM Electronic supplier", "Construction", 24, 6.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('4', "nM Electronic supplier", "Construction", 24, 4.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('5', "nM Electronic supplier", "Construction", 49, 3.9, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('6', "nM Electronic supplier", "Construction", 87, 6.5, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('7', "nM Electronic supplier", "Construction", 37, 4.3, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('8', "nM Electronic supplier", "Construction", 94, 0.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('9', "nM Electronic supplier", "Construction", 65, 7.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('10', "nM Electronic supplier", "Construction", 98, 0.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('11', "nM Electronic supplier", "Construction", 81, 2.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('12', "nM Electronic supplier", "Construction", 9, 37.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
+  createData('13', "nM Electronic supplier", "Construction", 63, 4.0, "16 vacancies", "45 employess", "12.24.21", "premium"),
 ];
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -172,14 +173,22 @@ const useStyles = makeStyles((theme) => ({
 
 const EnhancedTable = () => {
   const classes = useStyles();
+  const dispatch = useDispatch()
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rows, setRows] = useState(useSelector(state => state.filters.filtersArray));
 
-  console.log(order, orderBy)
+  const vacanciesArray = useSelector(state => state.filters.cloneFiltersArray);
+
+  useEffect(() => {
+    if (vacanciesArray.length > 0) {
+      setRows(vacanciesArray)
+    }
+  }, [vacanciesArray])
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -233,8 +242,9 @@ const EnhancedTable = () => {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+
   const next = () => {
-    if (page <= Math.round(rows.length / rowsPerPage)) {
+    if ((page + 1) < Math.round(rows.length / rowsPerPage)) {
       setPage(page+1)
     }
   }
@@ -270,7 +280,6 @@ const EnhancedTable = () => {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  console.log(page, rowsPerPage);
                   return (
                     <TableRow
                       hover
@@ -323,7 +332,7 @@ const EnhancedTable = () => {
           hidePrevButton="true"
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-        <span className={page === Math.round(rows.length / rowsPerPage) ? "item_button__prev" : "item_button__next"} onClick={next}>
+        <span className={(page + 1) === Math.round(rows.length / rowsPerPage) ? "item_button__prev" : "item_button__next"} onClick={next}>
           Next
         </span>
       </div>

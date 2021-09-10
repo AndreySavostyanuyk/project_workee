@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Filter from '../../../source/images/filter.svg'
 import './FilterButton.scss';
 
-const FilterButton = ({ setOpen }) => {
-  
+const FilterButton = ({ setOpenFilterPanel }) => {
+  const dispatch = useDispatch();
+  const filterArray = useSelector(state => state.filters.filtersArray);
+
   const handleDrawerOpen = () => {
-    setOpen(true);
+    dispatch({type:'ADD_ARRAY', payload: filterArray});
+    setOpenFilterPanel(true);
   };
 
   return (

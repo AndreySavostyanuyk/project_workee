@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { 
   Accordion,
@@ -10,6 +11,7 @@ import {
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import RemoveRoundedIcon from '@material-ui/icons/RemoveRounded';
 import './Industries.scss';
+import { applyMiddleware } from 'redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,8 +23,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Industries = ({ arrayIndustries, setArrayIndustries }) => {
+const Industries = ({ arrayIndustries, setArrayIndustries, filterArray, arrayVacancies }) => {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const clonefilterArray = useSelector(state => state.filters.cloneFiltersArray)
+  const filters = useSelector(state => state.filters.filters)
 
   const classes = useStyles();
   const [listCheckbox, setListCheckbox] = useState([
@@ -41,9 +46,9 @@ const Industries = ({ arrayIndustries, setArrayIndustries }) => {
 
   useEffect(() => {
     const cloneListCheckbox = listCheckbox.map((item,index) => {
-      const id = arrayIndustries.indexOf(item.text);
+      const doesElement = arrayIndustries.indexOf(item.text);
 
-       if(id === -1) {
+       if(doesElement === -1) {
          return { ...item, check: false}
        }  return item
     })
@@ -52,21 +57,26 @@ const Industries = ({ arrayIndustries, setArrayIndustries }) => {
   }, [arrayIndustries])
 
   const handleChange = (value, index) => {
-    const id = arrayIndustries.indexOf(value.text);
+    const doesElement = arrayIndustries.indexOf(value.text);
 
-    if (id >= 0) {
+    if (doesElement >= 0) {
       listCheckbox[index].check = false
   
       const cloneArrayIndustries = arrayIndustries.filter((item) => {
-        return item !== arrayIndustries[id]
+        return item !== arrayIndustries[doesElement]
       })
 
       setArrayIndustries(cloneArrayIndustries)
-    } else if (id === -1) {
-      listCheckbox[index].check = true
+    } else if (doesElement === -1) {
+      listCheckbox[index].check = true;
       setArrayIndustries([...arrayIndustries, value.text]);
     }
   };
+
+  const apply = () => {
+    
+    dispatch({type:'ADD_TEST'});
+  }
 
   return (
     <div className="item_accordion_Industries">
@@ -96,7 +106,7 @@ const Industries = ({ arrayIndustries, setArrayIndustries }) => {
             }
           </div>
           <div className="item_text">
-            <span>Apply</span>
+            <span onClick={() => apply()}>Apply</span>
           </div>
         </AccordionDetails>
       </Accordion>
