@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Avatar } from '@material-ui/core'
+import User from '../../../../source/images/avatar.jpg'
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import { 
   Table, 
@@ -14,7 +16,7 @@ import {
   Checkbox  
 } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import './Table.scss';
+import './TableJobs.scss';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -44,13 +46,15 @@ function stableSort(array, comparator) {
 
 const headCells = [
   { id: 'id', numeric: false, disablePadding: true, label: '#' },
-  { id: 'name', numeric: true, disablePadding: false, label: 'Company name' },
-  { id: 'industry', numeric: true, disablePadding: false, label: 'industry' },
-  { id: 'cvr', numeric: true, disablePadding: false, label: 'cvr' },
-  { id: 'vacancies', numeric: true, disablePadding: false, label: 'vacancies' },
-  { id: 'employees', numeric: true, disablePadding: false, label: 'employees' },
+  { id: 'name', numeric: true, disablePadding: false, label: 'name' },
+  { id: 'company', numeric: true, disablePadding: false, label: 'company' },
+  { id: 'category', numeric: true, disablePadding: false, label: 'category' },
+  { id: 'location', numeric: true, disablePadding: false, label: 'location' },
+  { id: 'applications', numeric: true, disablePadding: false, label: 'applications' },
+  { id: 'shortlisted', numeric: true, disablePadding: false, label: 'shortlisted' },
+  { id: 'rejected', numeric: true, disablePadding: false, label: 'rejected' },
+  { id: 'status', numeric: true, disablePadding: false, label: 'status' },
   { id: 'date', numeric: true, disablePadding: false, label: 'date' },
-  { id: 'plan', numeric: true, disablePadding: false, label: 'plan' }
 ];
 
 const EnhancedTableHead = (props) => {
@@ -150,7 +154,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTable = () => {
+const TableJobs = () => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const [order, setOrder] = useState('asc');
@@ -159,9 +163,9 @@ const EnhancedTable = () => {
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [rows, setRows] = useState(useSelector(state => state.filters.filtersArray));
+  const [rows, setRows] = useState(useSelector(state => state.filterJobs.filtersArrayJobs));
 
-  const vacanciesArray = useSelector(state => state.filters.cloneFiltersArray);
+  const vacanciesArray = useSelector(state => state.filterJobs.cloneFiltersArrayJobs);
 
   useEffect(() => {
     if (vacanciesArray.length > 0) {
@@ -221,6 +225,7 @@ const EnhancedTable = () => {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+
   const next = () => {
     if ((page + 1) < Math.round(rows.length / rowsPerPage)) {
       setPage(page+1)
@@ -278,11 +283,13 @@ const EnhancedTable = () => {
                         {row.id}
                       </TableCell>
                       <TableCell align="right">{row.name}</TableCell>
-                      <TableCell align="right">{row.industry}</TableCell>
-                      <TableCell align="right">{row.cvr}</TableCell>
-                      <TableCell align="right">{row.vacancies}</TableCell>
-                      <TableCell align="right">{row.employees}</TableCell>
-                      <TableCell align="right">{row.plan}</TableCell>
+                      <TableCell align="right">{row.company}</TableCell>
+                      <TableCell align="right">{row.category}</TableCell>
+                      <TableCell align="right">{row.location}</TableCell>
+                      <TableCell align="right">{row.applications}</TableCell>
+                      <TableCell align="right">{row.shortlisted}</TableCell>
+                      <TableCell align="right">{row.rejected}</TableCell>
+                      <TableCell align="right">{row.status}</TableCell>
                       <TableCell align="right">{row.date}</TableCell>
                     </TableRow>
                   );
@@ -318,4 +325,4 @@ const EnhancedTable = () => {
   );
 }
 
-export default EnhancedTable;
+export default TableJobs;

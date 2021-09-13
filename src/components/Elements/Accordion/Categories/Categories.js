@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import RemoveRoundedIcon from '@material-ui/icons/RemoveRounded';
-import './Industries.scss';
+import './Categories.scss';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,18 +22,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Industries = ({ arrayIndustries, setArrayIndustries, filterArray, arrayVacancies }) => {
+const Categories = ({ arrayEmployeesCategories, setArrayEmployeesCategories }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const classes = useStyles();
   const [listCheckbox, setListCheckbox] = useState([
-    { check: false, text: 'Restaurants/Cafe' },
-    { check: false, text: 'Hotel/Hostel' },
-    { check: false, text: 'Cleaning' },
-    { check: false, text: 'Construction' },
-    { check: false, text: 'Retail' },
-    { check: false, text: 'Transport' },
+    { check: false, text: 'Chef/Cook' },
+    { check: false, text: 'Waiter/Waitress' },
+    { check: false, text: 'Barista/Bartender' },
+    { check: false, text: 'Warehouse' },
+    { check: false, text: 'Office/Admin' },
+    { check: false, text: 'Events/Promoter' },
   ]);
 
   const openAccordion = () => {
@@ -43,7 +43,7 @@ const Industries = ({ arrayIndustries, setArrayIndustries, filterArray, arrayVac
 
   useEffect(() => {
     const cloneListCheckbox = listCheckbox.map((item,index) => {
-      const doesElement = arrayIndustries.indexOf(item.text);
+      const doesElement = arrayEmployeesCategories.indexOf(item.text);
 
        if(doesElement === -1) {
          return { ...item, check: false}
@@ -51,28 +51,28 @@ const Industries = ({ arrayIndustries, setArrayIndustries, filterArray, arrayVac
     })
 
   setListCheckbox(cloneListCheckbox)
-  }, [arrayIndustries])
+  }, [arrayEmployeesCategories])
 
   const handleChange = (value, index) => {
-    const doesElement = arrayIndustries.indexOf(value.text);
+    const doesElement = arrayEmployeesCategories.indexOf(value.text);
 
     if (doesElement >= 0) {
       listCheckbox[index].check = false
   
-      const cloneArrayIndustries = arrayIndustries.filter((item) => {
-        return item !== arrayIndustries[doesElement]
+      const cloneArrayIndustries = arrayEmployeesCategories.filter((item) => {
+        return item !== arrayEmployeesCategories[doesElement]
       })
 
-      setArrayIndustries(cloneArrayIndustries)
+      setArrayEmployeesCategories(cloneArrayIndustries)
     } else if (doesElement === -1) {
       listCheckbox[index].check = true;
-      setArrayIndustries([...arrayIndustries, value.text]);
+      setArrayEmployeesCategories([...arrayEmployeesCategories, value.text]);
     }
   };
 
   const apply = () => {
-    
-    dispatch({type:'ADD_TEST'});
+  
+    dispatch({type:'ADD_TEST_JOBS'});
   }
 
   return (
@@ -85,7 +85,7 @@ const Industries = ({ arrayIndustries, setArrayIndustries, filterArray, arrayVac
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography className={classes.heading}>Industries</Typography>
+          <Typography className={classes.heading}>Categories</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <div className="ListIdustries">
@@ -111,4 +111,4 @@ const Industries = ({ arrayIndustries, setArrayIndustries, filterArray, arrayVac
   );
 }
 
-export default Industries;
+export default Categories;

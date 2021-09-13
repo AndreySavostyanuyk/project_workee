@@ -1,0 +1,42 @@
+.item_heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ 
+  p {
+    font-style: normal;
+    color:#78849B;
+    font-size: 24px;
+    line-height: 27px;
+    margin-left: 10px;
+  }
+}
+
+.item_search {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .item_filter {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .item_download {
+    display: flex;
+    align-items: center;
+
+    p {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      color: #FFB002;
+    }
+
+    img {
+      margin-right: 10px;
+    }
+  }
+}

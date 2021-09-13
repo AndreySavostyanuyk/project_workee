@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Avatar } from '@material-ui/core'
+import User from '../../../../source/images/avatar.jpg'
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import { 
   Table, 
@@ -14,7 +16,7 @@ import {
   Checkbox  
 } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import './Table.scss';
+import './TableCandidates.scss';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -45,12 +47,12 @@ function stableSort(array, comparator) {
 const headCells = [
   { id: 'id', numeric: false, disablePadding: true, label: '#' },
   { id: 'name', numeric: true, disablePadding: false, label: 'Company name' },
-  { id: 'industry', numeric: true, disablePadding: false, label: 'industry' },
-  { id: 'cvr', numeric: true, disablePadding: false, label: 'cvr' },
-  { id: 'vacancies', numeric: true, disablePadding: false, label: 'vacancies' },
-  { id: 'employees', numeric: true, disablePadding: false, label: 'employees' },
-  { id: 'date', numeric: true, disablePadding: false, label: 'date' },
-  { id: 'plan', numeric: true, disablePadding: false, label: 'plan' }
+  { id: 'applies', numeric: true, disablePadding: false, label: 'applies' },
+  { id: 'shortlised', numeric: true, disablePadding: false, label: 'shortlised' },
+  { id: 'rejected', numeric: true, disablePadding: false, label: 'rejected' },
+  { id: 'languages', numeric: true, disablePadding: false, label: 'languages' },
+  { id: 'location', numeric: true, disablePadding: false, label: 'location' },
+  { id: 'date', numeric: true, disablePadding: false, label: 'date' }
 ];
 
 const EnhancedTableHead = (props) => {
@@ -150,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTable = () => {
+const TableCandidates = () => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const [order, setOrder] = useState('asc');
@@ -159,9 +161,9 @@ const EnhancedTable = () => {
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [rows, setRows] = useState(useSelector(state => state.filters.filtersArray));
+  const [rows, setRows] = useState(useSelector(state => state.filterCandidates.filtersArray));
 
-  const vacanciesArray = useSelector(state => state.filters.cloneFiltersArray);
+  const vacanciesArray = useSelector(state => state.filterCandidates.cloneFiltersArray);
 
   useEffect(() => {
     if (vacanciesArray.length > 0) {
@@ -221,6 +223,7 @@ const EnhancedTable = () => {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+
   const next = () => {
     if ((page + 1) < Math.round(rows.length / rowsPerPage)) {
       setPage(page+1)
@@ -277,12 +280,12 @@ const EnhancedTable = () => {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.id}
                       </TableCell>
-                      <TableCell align="right">{row.name}</TableCell>
-                      <TableCell align="right">{row.industry}</TableCell>
-                      <TableCell align="right">{row.cvr}</TableCell>
-                      <TableCell align="right">{row.vacancies}</TableCell>
-                      <TableCell align="right">{row.employees}</TableCell>
-                      <TableCell align="right">{row.plan}</TableCell>
+                      <TableCell align="right"><div className='item_userCell'><Avatar alt="Andry Baker" src={User} />{row.name}</div> </TableCell>
+                      <TableCell align="right">{row.applies}</TableCell>
+                      <TableCell align="right">{row.shortlised}</TableCell>
+                      <TableCell align="right">{row.rejected}</TableCell>
+                      <TableCell align="right">{row.languages}</TableCell>
+                      <TableCell align="right">{row.location}</TableCell>
                       <TableCell align="right">{row.date}</TableCell>
                     </TableRow>
                   );
@@ -318,4 +321,4 @@ const EnhancedTable = () => {
   );
 }
 
-export default EnhancedTable;
+export default TableCandidates;
