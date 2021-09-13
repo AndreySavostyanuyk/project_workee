@@ -6,7 +6,7 @@ import FilterButton from '../Elements/FilterButton/FilterButton';
 import Table from '../Elements/Table/Table'
 import './Companies.scss';
 
-const Companies = ({ open, setOpen }) => {
+const Companies = ({ open, setOpenFilterPanel }) => {
 
   return (
     <div className="main_companies">
@@ -18,7 +18,7 @@ const Companies = ({ open, setOpen }) => {
         </div>
         <div className="item_search">
           <InputSearch />
-          <FilterButton setOpen={setOpen} />
+          <FilterButton setOpenFilterPanel={setOpenFilterPanel} />
         </div>
         <div className="item_table">
           <Table />

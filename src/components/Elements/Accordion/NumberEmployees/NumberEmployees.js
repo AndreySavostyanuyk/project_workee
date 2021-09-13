@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { 
   makeStyles, 
   Accordion, 
@@ -21,16 +22,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees }) => {
+const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees, filterArray }) => {
   const [open, setOpen] = useState(false);
   const [arrayListCheckbox, setArrayListCheckbox] = useState([
-  {check:false, text: '0 - 10'},
-  {check:false, text: '11 - 20'},
-  {check:false, text: '21 - 50'},
-  {check:false, text: '50 - 100'},
-  {check:false, text: '100+'}
+  {check:false, symbol: '-', text:'0-10', min: 0, max: 10},
+  {check:false, symbol: '-', text:'11-20', min: 11, max: 20},
+  {check:false, symbol: '-', text:'21-50', min: 21, max: 50},
+  {check:false, symbol: '-', text:'50-100', min: 50, max: 100},
+  {check:false, symbol: '+', text:'100+', min: 100, max: ""}
   ]);
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const openAccordion = () => {
     const flag = !open;
@@ -39,8 +41,8 @@ const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees })
 
   useEffect(() => {
     const cloneArrayListCheckbox = arrayListCheckbox.map((item,index) => {
-      const id = arrayEmployees.indexOf(item.text);
-       if(id === -1) {
+      const doesElement = arrayEmployees.find(x => x.min == item.min);
+       if(!doesElement) {
          return { ...item, check: false}
        }  return item
     })
@@ -48,20 +50,23 @@ const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees })
   }, [arrayEmployees])
 
   const handleChange = (value, index) => {
-    const id = arrayEmployees.indexOf(value.text);
-    if (id >= 0) {
+    const doesElement = arrayEmployees.find(x => x.min == value.min)
+    if (doesElement) {
       arrayListCheckbox[index].check = false
     
       const cloneArrayEmployees = arrayEmployees.filter((item) => {
-        return item !== arrayEmployees[id]
+        return item !== doesElement
       })
       setArrayEmployees(cloneArrayEmployees)
-    } else if (id === -1) {
+    } else if (!doesElement) {
       arrayListCheckbox[index].check = true
-      setArrayEmployees([...arrayEmployees, value.text]);
+      setArrayEmployees([...arrayEmployees, { min: value.min, max: value.max}]);
     }
-    // setArrayIndustries([...arrayIndustries,value])
   };
+
+  const apply = () => {
+    dispatch({type:'ADD_TEST' });
+  }
 
   return (
     <div className="item_accordion_Employees">
@@ -79,19 +84,21 @@ const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees })
           <div className="ListEmployees">
             { arrayListCheckbox.map((item, index) => 
               <div className="item_ListEmployees" key={index}>
+
                 <Checkbox
                 color="primary"
                 onChange={() => handleChange(item, index)}
+                
                 checked={item.check}
                 inputProps={{ 'aria-label': 'secondary checkbox' }}
                 />
-                <span className="listEmployees_item_text">{item.text}</span>
+                <span className="listEmployees_item_text">{item.min}{item.symbol}{item.max}</span>
               </div>
             )
             }
           </div>
           <div className="item_text">
-            <span>Apply</span>
+            <span onClick={() => apply()}>Apply</span>
           </div>
         </AccordionDetails>
       </Accordion>

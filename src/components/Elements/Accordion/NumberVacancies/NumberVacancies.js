@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -20,22 +21,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NumberVacancies = ({ setArrayVacancies, arrayVacancies }) => {
+const NumberVacancies = ({ setArrayVacancies, arrayVacancies, filterArray, openFilterPanel }) => {
   const [open, setOpen] = useState(false);
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const openAccordion = () => {
     const flag = !open;
     setOpen(flag);
   }
 
+  const apply = () => {
+    dispatch({type:'ADD_TEST' });
+  }
+ 
   return (
     <div className="item_accordion_Vacancies">
       <Accordion>
         <AccordionSummary
           className={open ? "openAccordion": null}
           onClick={() => openAccordion()}
-          expandIcon={ open ? <RemoveRoundedIcon /> : <AddRoundedIcon />}
+          expandIcon={open ? <RemoveRoundedIcon /> : <AddRoundedIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -44,7 +50,7 @@ const NumberVacancies = ({ setArrayVacancies, arrayVacancies }) => {
         <AccordionDetails>
           <RangeSlider setArrayVacancies={setArrayVacancies} arrayVacancies={arrayVacancies} />
           <div className="item_text">
-            <span>Apply</span>
+            <span onClick={() => apply()}>Apply</span>
           </div>
         </AccordionDetails>
       </Accordion>

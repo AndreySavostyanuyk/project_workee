@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './BadgeItem.scss';
 
 const BadgeItem = () => {
   const [active, setActive] = useState(0);
+  const dispatch = useDispatch();
+  const clonefilterArray = useSelector(state => state.filters.cloneFiltersArray)
+  const filters = useSelector(state => state.filters.filtersArray)
+  console.log(filters)
 
   const array = [
-    {filterName:'All', size:80},
-    {filterName:'Active', size:80},
+    {filterName:'All', size:filters.length},
+    {filterName:'Active', size:filters.length},
     {filterName:'Blocked', size:0}
   ]
   

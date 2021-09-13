@@ -14,16 +14,16 @@ import {
 import './App.css';
 
 const App = () => {
-  const [open, setOpen] = useState(false);
+  const [openFilterPanel, setOpenFilterPanel] = useState(false);
 
   return (
     <div className="App">
       <SidePanel />
-      <FilterPanel setOpen={setOpen} open={open} />
+      <FilterPanel setOpenFilterPanel={setOpenFilterPanel} openFilterPanel={openFilterPanel} />
       <Switch>
         <Route path='/jobs' component={Jobs} />
         <Route path='/companies'>
-          <Companies open={open} setOpen={setOpen}  />
+          <Companies openFilterPanel={openFilterPanel} setOpenFilterPanel={setOpenFilterPanel}  />
         </Route>
         <Route path='/candidates' component={Candidates} />
         <Route path='/problemReports' component={ProblemReports} />
