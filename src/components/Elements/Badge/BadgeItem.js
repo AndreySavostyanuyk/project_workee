@@ -7,8 +7,7 @@ const BadgeItem = () => {
   const dispatch = useDispatch();
   const clonefilterArray = useSelector(state => state.filters.cloneFiltersArray)
   const filters = useSelector(state => state.filters.filtersArray)
-  console.log(filters)
-
+ 
   const array = [
     {filterName:'All', size:filters.length},
     {filterName:'Active', size:filters.length},

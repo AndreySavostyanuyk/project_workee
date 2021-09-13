@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -250,
+    marginLeft: -260,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -87,7 +87,7 @@ const FilterPanel = ({ setOpenFilterPanel, openFilterPanel }) => {
     dispatch({type:'ADD_FILTER', payload: {industries: arrayIndustries, employess: arrayEmployees, vacancies: arrayVacancies[1] } });
   }, [arrayIndustries, arrayEmployees, arrayVacancies])
   
-  const handleDrawerClose = () => {
+  const handleDrawerCloses = () => {
     setOpenFilterPanel(false);
     dispatch({type:'ADD_ARRAY', payload: filterArray});
     setArrayEmployees([]);
@@ -105,6 +105,7 @@ const FilterPanel = ({ setOpenFilterPanel, openFilterPanel }) => {
   }
 
   const clearFilters = () => {
+    setOpenFilterPanel(false);
     setArrayEmployees([]);
     setArrayIndustries([]);
     dispatch({type:'ADD_ARRAY', payload: filterArray});
@@ -186,8 +187,8 @@ const FilterPanel = ({ setOpenFilterPanel, openFilterPanel }) => {
     >
       <div className={classes.drawerHeader} />
     </main>
-    <div className="CloseFilterPanel">
-      <IconButton onClick={handleDrawerClose}>
+    <div className="CloseFilterPanel" >
+      <IconButton onClick={handleDrawerCloses} className={!openFilterPanel && "displayNone"}>
         {theme.direction === 'ltr' ? <ArrowBackIcon /> : <ChevronRightIcon />}
       </IconButton>
     </div>

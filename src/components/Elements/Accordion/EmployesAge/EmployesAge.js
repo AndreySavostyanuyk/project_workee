@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import RemoveRoundedIcon from '@material-ui/icons/RemoveRounded';
-import './NumberEmployees.scss';
+import './EmployesAge.scss';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,14 +22,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees, filterArray }) => {
+const EmployesAge = ({ arrayEmployeesAge, setArrayEmployeesAge }) => {
   const [open, setOpen] = useState(false);
   const [arrayListCheckbox, setArrayListCheckbox] = useState([
-  {check:false, symbol: '-', text:'0-10', min: 0, max: 10},
-  {check:false, symbol: '-', text:'11-20', min: 11, max: 20},
-  {check:false, symbol: '-', text:'21-50', min: 21, max: 50},
-  {check:false, symbol: '-', text:'50-100', min: 50, max: 100},
-  {check:false, symbol: '+', text:'100+', min: 100, max: ""}
+  {check:false, symbol: '-', text:'0-10', min: 0, max: 18},
+  {check:false, symbol: '-', text:'11-20', min: 19, max: 34},
+  {check:false, symbol: '-', text:'21-50', min: 35, max: 49},
+  {check:false, symbol: '+', text:'50+', min: 50, max: ""},
   ]);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -41,26 +40,26 @@ const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees, f
 
   useEffect(() => {
     const cloneArrayListCheckbox = arrayListCheckbox.map((item,index) => {
-      const doesElement = arrayEmployees.find(x => x.min == item.min);
+      const doesElement = arrayEmployeesAge.find(x => x.min == item.min);
        if(!doesElement) {
          return { ...item, check: false}
        }  return item
     })
     setArrayListCheckbox(cloneArrayListCheckbox)
-  }, [arrayEmployees])
+  }, [arrayEmployeesAge])
 
   const handleChange = (value, index) => {
-    const doesElement = arrayEmployees.find(x => x.min == value.min)
+    const doesElement = arrayEmployeesAge.find(x => x.min == value.min)
     if (doesElement) {
       arrayListCheckbox[index].check = false
     
-      const cloneArrayEmployees = arrayEmployees.filter((item) => {
+      const cloneArrayEmployees = arrayEmployeesAge.filter((item) => {
         return item !== doesElement
       })
-      setArrayEmployees(cloneArrayEmployees)
+      setArrayEmployeesAge(cloneArrayEmployees)
     } else if (!doesElement) {
       arrayListCheckbox[index].check = true
-      setArrayEmployees([...arrayEmployees, { min: value.min, max: value.max}]);
+      setArrayEmployeesAge([...arrayEmployeesAge, { min: value.min, max: value.max}]);
     }
   };
 
@@ -69,7 +68,7 @@ const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees, f
   }
 
   return (
-    <div className="item_accordion_Employees">
+    <div className="item_accordion_EmployeesAge">
       <Accordion>
         <AccordionSummary
           className={open ? "openAccordion": null}
@@ -84,7 +83,6 @@ const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees, f
           <div className="ListEmployees">
             { arrayListCheckbox.map((item, index) => 
               <div className="item_ListEmployees" key={index}>
-
                 <Checkbox
                 color="primary"
                 onChange={() => handleChange(item, index)}
@@ -105,4 +103,4 @@ const NumberEmployees = ({ arrayEmployees, setArrayEmployees, deleteEmployees, f
   );
 }
 
-export default NumberEmployees;
+export default EmployesAge;
